@@ -72,6 +72,7 @@ def adventure_game():
                 print(f"You see a {rooms[location]['item']}.\n")
             else:
                 print("There is nothing here.")
+            
             if 'item' in rooms[location] and rooms[location]['item'] not in inventory:
                 item = rooms[location]['item']
                 # print(f"You see a {item}.")
@@ -81,7 +82,19 @@ def adventure_game():
                     print(f"You have taken the {item}.")
                 else:
                     print(f"You left {item}.")
-                
+        
+        # taking item
+        elif move.startswith('take '):
+            item = move.split(" ", 1)[1].title()
+            if 'item' in rooms[location] and rooms[location]['item'] == item:
+                if item not in inventory:
+                    inventory.append(item)
+                    print(f"You have taken the {item}.")
+                else:
+                    print(f"You already have the {item}.")
+            else:
+                print(f"There is no {item} here.")
+
         # going to next location
         elif move.startswith('go '):
             direction = move.split()[1]
@@ -100,6 +113,13 @@ def adventure_game():
                     location = next_location
             else:
                 print("You can't go that way!")
+        
+        # Win condition
+        if location == "Tower" and rooms["Tower"].get("item") == "Crystal":
+            if "Crystal" not in inventory:
+                print("You found the 💎 Crystal of Light! You win! 🎉")
+                inventory.append("Crystal")
+                break
 
 
 if __name__ == "__main__":
