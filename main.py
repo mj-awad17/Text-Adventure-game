@@ -50,8 +50,64 @@ def adventure_game():
     location = 'Forest'
 
     show_instructions()
-    show_status(current_location=location, inventory=inventory)
-    show_map()
+    # show_status(current_location=location, inventory=inventory)
+    # show_map()
+
+    # user input
+    while True:
+        show_status(current_location=location, inventory=inventory)
+        
+        # user input
+        move = input("\nEnter command: ").strip().lower()
+        if move == 'quit':
+            print("Thanks for playing! Goodbye!\n")
+            return
+        elif move == 'map':
+            show_map()
+        elif move == 'inventory':
+            if not inventory:
+                print("Your inventory is empty.")
+            else:
+                print(f"Your inventory: {inventory}")
+
+        elif move == 'look':
+            print(f"You are in the {location}.")
+            if 'item' in rooms[location]:
+                print(f"You see a {rooms[location]['item']}.")
+            elif 'item' in rooms[location] and rooms[item] not in inventory:
+                print(f"You see a {rooms[location]['item']} here.")
+                take = input("Do you want to take it? (yes/no): ").strip().lower()
+                if take == 'yes':
+                    inventory.append(rooms[location]['item'])
+                    print(f"You have taken the {rooms[location]['item']}.")
+                item = move.split()[1]
+                if 'item' in rooms[location] and rooms[location]['item'] == item:
+                    inventory.append(item)
+                    print(f"You have taken the {item}.")
+                else:
+                    print(f"There is no {item} here to take.")
+            elif move.startswith('use '):
+                item = move.split()[1]
+                if item in inventory:
+                    if item == 'Sword' and location == 'Cave':
+                        print("You use the Sword to cut through the vines blocking the path.")
+                    elif item == 'Shield' and location == 'River':
+                        print("You use the Shield to block the water and cross the river.")
+                    elif item == 'Armor' and location == 'Hut':
+                        print("You wear the Armor to protect yourself from dangers.")
+                else:
+                    print(f"You don't have a {item} in your inventory.")
+        elif move.startswith('go '):
+            direction = move.split()[1]
+            if direction in rooms[location]:
+                next_location = rooms[location][direction]
+                # tower is locked
+                if next_location == 'Tower':
+                    if rooms["Tower"].get('locked') and ("Sword" in inventory and "Shield" in inventory and "Armor" in inventory):
+                        print("You have unlocked the Tower!")
+                location = next_location
+            else:
+                print("You can't go that way.")
 
 if __name__ == "__main__":
     adventure_game()
