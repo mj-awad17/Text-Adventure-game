@@ -103,7 +103,9 @@ def adventure_game():
                 # tower is locked: collect items to unlock
                 if next_location == 'Tower' and rooms["Tower"].get('locked'):
                     if "Sword" in inventory and "Shield" in inventory and "Armor" in inventory:
-                        print("You have unlocked the Tower!")
+                        print("Congratulation! You have unlocked the Tower and collected the Crystal of Light 💎!")
+                        rooms["Tower"]["locked"] = False
+                        location = "Tower"
                     elif rooms["Tower"]["locked"]:
                         print("The Tower is locked. You need to collect the Sword, Shield, and Armor to unlock it.")
                         continue
@@ -113,14 +115,6 @@ def adventure_game():
                     location = next_location
             else:
                 print("You can't go that way!")
-        
-        # Win condition
-        if location == "Tower" and rooms["Tower"].get("item") == "Crystal":
-            if "Crystal" not in inventory:
-                print("You found the 💎 Crystal of Light! You win! 🎉")
-                inventory.append("Crystal")
-                break
-
 
 if __name__ == "__main__":
     adventure_game()
