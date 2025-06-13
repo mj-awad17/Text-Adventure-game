@@ -50,7 +50,7 @@ def adventure_game():
     # show_status(current_location=location, inventory=inventory)
     # show_map()
 
-    # user input
+    # game loop
     while True:
         show_status(location, inventory)
         
@@ -66,13 +66,14 @@ def adventure_game():
         elif move == 'inventory':
             print(f"Your inventory: {inventory}")
 
+        # looking around
         elif move == 'look':
             print(f"You are in the {location}.")
             if 'item' in rooms[location]:
                 print(f"You see a {rooms[location]['item']}.\n")
             else:
                 print("There is nothing here.")
-            
+            # if item is present in the room, ask to take it
             if 'item' in rooms[location] and rooms[location]['item'] not in inventory:
                 item = rooms[location]['item']
                 # print(f"You see a {item}.")
@@ -98,10 +99,12 @@ def adventure_game():
         # going to next location
         elif move.startswith('go '):
             direction = move.split()[1]
+            # check if direction is valid
             if direction in rooms[location]:
                 next_location = rooms[location][direction]
                 # tower is locked: collect items to unlock
                 if next_location == 'Tower' and rooms["Tower"].get('locked'):
+                    # check if user has all items to unlock the Tower
                     if "Sword" in inventory and "Shield" in inventory and "Armor" in inventory:
                         print("Congratulation! You have unlocked the Tower and collected the Crystal of Light 💎!")
                         rooms["Tower"]["locked"] = False
