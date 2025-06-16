@@ -5,7 +5,7 @@ _CiP-2025 Project_
 
 🎥 **Watch Gameplay Demo**  
 
-[![Watch on YouTube](https://img.shields.io/badge/YouTube-Watch%20Now-red?style=for-the-badge&logo=youtube)](https://youtu.be/Fl4xfYYAo8Y)
+[![Watch on YouTube](https://raw.githubusercontent.com/mj-awad17/Text-Adventure-game/refs/heads/main/thumbnail.jpg)](https://youtu.be/Fl4xfYYAo8Y)
 ---
 
 ## 🎮 Gameplay Commands
